@@ -1,2 +1,3 @@
-# java-code
-Java basic codes for testing
+# maven-project
+
+Simple Maven Project
