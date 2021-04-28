@@ -1,6 +1,4 @@
 FROM node:8.11.2-alpine as build
-# to be able to run the IF bash commands
-# && apk add --no-cache \
 RUN set -x \
     && apk update \
     && apk upgrade \
@@ -17,10 +15,9 @@ COPY ./package.json .
 RUN npm install
 COPY . .
 RUN rm .env -f
-RUN npm run build
 
 FROM nginx:alpine
-COPY --from=build /webapp/build /usr/share/nginx/html
+COPY /webapp/* /usr/share/nginx/html
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 8443
 CMD ["nginx", "-g", "daemon off;"]
